@@ -1,7 +1,11 @@
 // Console.cpp : CxImage console demo.
 
-#include "stdafx.h"
+#include "StdAfx.h"
+#ifdef WIN32
 #include <io.h>
+#else
+#include <unistd.h>
+#endif
 
 #include "ximage.h"
 
