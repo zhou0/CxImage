@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
+project(Console CXX)
+add_executable(Console Console.cpp)
+target_include_directories(Console PRIVATE . ${CMAKE_CURRENT_SOURCE_DIR}/../CxImage ${CMAKE_CURRENT_SOURCE_DIR}/../jpeg ${CMAKE_CURRENT_SOURCE_DIR}/../zlib ${CMAKE_CURRENT_SOURCE_DIR}/../png ${CMAKE_CURRENT_SOURCE_DIR}/../mng ${CMAKE_CURRENT_SOURCE_DIR}/../tiff)
+target_link_libraries(Console cximage png_static jpeg zlib tiff jbig mng jasper libdcr libpsd)

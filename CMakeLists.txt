@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.5)
+project(CxImageProject)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration -Wno-return-type")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wno-write-strings")
+
+add_definitions(-D_LINUX)
+
+set(SKIP_INSTALL_ALL ON)
+set(PNG_SHARED OFF CACHE BOOL "Build shared libpng" FORCE)
+set(PNG_STATIC ON CACHE BOOL "Build static libpng" FORCE)
+set(PNG_TESTS OFF CACHE BOOL "Build libpng tests" FORCE)
+
+add_subdirectory(zlib)
+add_subdirectory(png)
+add_subdirectory(jpeg)
+add_subdirectory(tiff)
+add_subdirectory(jasper)
+add_subdirectory(jbig)
+add_subdirectory(mng)
+add_subdirectory(raw)
+add_subdirectory(libpsd)
+add_subdirectory(CxImage)
+# add_subdirectory(demo2)

@@ -57,6 +57,8 @@
   #include <unistd.h>
   #include <arpa/inet.h>
 #endif
+#include <cstdint>
+#include <cstdint>
 
 /////////////////////////////////////////////////////////////////////////////
 #include "xfile.h"
@@ -493,24 +495,24 @@ public:
 /** \addtogroup Painting */ //@{
 #if CXIMAGE_SUPPORT_WINDOWS
 	int32_t	Blt(HDC pDC, int32_t x=0, int32_t y=0);
-	HBITMAP Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, RECT* pClipRect, bool bSmooth);
-	HBITMAP MakeBitmap(HDC hdc = NULL, bool bTransparency = false);
-	HICON   MakeIcon(HDC hdc = NULL, bool bTransparency = false);
+	HBITMAP Draw2HBITMAP(void* hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, RECT* pClipRect, bool bSmooth);
+	HBITMAP MakeBitmap(void* hdc = NULL, bool bTransparency = false);
+	HICON   MakeIcon(void* hdc = NULL, bool bTransparency = false);
 	HANDLE	CopyToHandle();
 	bool	CreateFromHANDLE(HANDLE hMem);		//Windows objects (clipboard)
 	bool	CreateFromHBITMAP(HBITMAP hbmp, HPALETTE hpal=0, bool bTransparency = false);	//Windows resource
 	bool	CreateFromHICON(HICON hico, bool bTransparency = false);
-	int32_t	Draw(HDC hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1, RECT* pClipRect = 0, bool bSmooth = false, bool bFlipY = false);
-	int32_t	Draw(HDC hdc, const RECT& rect, RECT* pClipRect=NULL, bool bSmooth = false, bool bFlipY = false);
-	int32_t	Stretch(HDC hdc, int32_t xoffset, int32_t yoffset, int32_t xsize, int32_t ysize, uint32_t dwRop = SRCCOPY);
-	int32_t	Stretch(HDC hdc, const RECT& rect, uint32_t dwRop = SRCCOPY);
-	int32_t	Tile(HDC hdc, RECT *rc);
-	int32_t	Draw2(HDC hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1);
-	int32_t	Draw2(HDC hdc, const RECT& rect);
-	//int32_t	DrawString(HDC hdc, int32_t x, int32_t y, const char* text, RGBQUAD color, const char* font, int32_t lSize=0, int32_t lWeight=400, uint8_t bItalic=0, uint8_t bUnderline=0, bool bSetAlpha=false);
-	int32_t	DrawString(HDC hdc, int32_t x, int32_t y, const TCHAR* text, RGBQUAD color, const TCHAR* font, int32_t lSize=0, int32_t lWeight=400, uint8_t bItalic=0, uint8_t bUnderline=0, bool bSetAlpha=false);
+	int32_t	Draw(void* hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1, RECT* pClipRect = 0, bool bSmooth = false, bool bFlipY = false);
+	int32_t	Draw(void* hdc, const RECT& rect, RECT* pClipRect=NULL, bool bSmooth = false, bool bFlipY = false);
+	int32_t	Stretch(void* hdc, int32_t xoffset, int32_t yoffset, int32_t xsize, int32_t ysize, uint32_t dwRop = SRCCOPY);
+	int32_t	Stretch(void* hdc, const RECT& rect, uint32_t dwRop = SRCCOPY);
+	int32_t	Tile(void* hdc, RECT *rc);
+	int32_t	Draw2(void* hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1);
+	int32_t	Draw2(void* hdc, const RECT& rect);
+	//int32_t	DrawString(void* hdc, int32_t x, int32_t y, const char* text, RGBQUAD color, const char* font, int32_t lSize=0, int32_t lWeight=400, uint8_t bItalic=0, uint8_t bUnderline=0, bool bSetAlpha=false);
+	int32_t	DrawString(void* hdc, int32_t x, int32_t y, const TCHAR* text, RGBQUAD color, const TCHAR* font, int32_t lSize=0, int32_t lWeight=400, uint8_t bItalic=0, uint8_t bUnderline=0, bool bSetAlpha=false);
 	// <VATI> extensions
-	int32_t    DrawStringEx(HDC hdc, int32_t x, int32_t y, CXTEXTINFO *pTextType, bool bSetAlpha=false );
+	int32_t    DrawStringEx(void* hdc, int32_t x, int32_t y, CXTEXTINFO *pTextType, bool bSetAlpha=false );
 	void    InitTextInfo( CXTEXTINFO *txt );
 protected:
 	bool IsHBITMAPAlphaValid( HBITMAP hbmp );
@@ -777,8 +779,8 @@ public:
 	CxImage* GetLayer(int32_t position);
 	CxImage* GetParent() const;
 	int32_t GetNumLayers() const;
-	int32_t LayerDrawAll(HDC hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1, RECT* pClipRect = 0, bool bSmooth = false);
-	int32_t LayerDrawAll(HDC hdc, const RECT& rect, RECT* pClipRect=NULL, bool bSmooth = false);
+	int32_t LayerDrawAll(void* hdc, int32_t x=0, int32_t y=0, int32_t cx = -1, int32_t cy = -1, RECT* pClipRect = 0, bool bSmooth = false);
+	int32_t LayerDrawAll(void* hdc, const RECT& rect, RECT* pClipRect=NULL, bool bSmooth = false);
 //@}
 #endif //CXIMAGE_SUPPORT_LAYERS
 

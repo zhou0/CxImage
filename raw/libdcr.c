@@ -7988,7 +7988,7 @@ void DCR_CLASS dcr_convert_to_rgb(DCRAW* p)
 			strcpy ((char *)p->oprof+pbody[5]+12, name[p->opt.output_color-1]);
 			for (i=0; i < 3; i++)
 				for (j=0; j < p->colors; j++)
-					for (out_cam[i][j] = (float)k=0; k < 3; k++)
+					for (out_cam[i][j] = 0, k=0; k < 3; k++)
 						out_cam[i][j] += (float)out_rgb[p->opt.output_color-1][i][k] * p->rgb_cam[k][j];
 	}
 	if (p->opt.verbose)

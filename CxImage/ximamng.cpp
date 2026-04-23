@@ -64,7 +64,7 @@ static mng_bool mymngprocessheader( mng_handle mng, mng_uint32 width, mng_uint32
 	// the final environment.
 
 	mngstuff *mymng = (mngstuff *)mng_get_userdata(mng);
-	
+
 	mymng->width  = width;
 	mymng->height = height;
 	mymng->bpp    = 24;
@@ -155,9 +155,15 @@ CxImageMNG::~CxImageMNG()
 	// cleanup and return
 	if (mnginfo.thread){ //close the animation thread
 		mnginfo.animation_enabled=0;
+		#if defined(WIN32)
 		ResumeThread(mnginfo.thread);
+#endif
+		#if defined(WIN32)
 		WaitForSingleObject(mnginfo.thread,500);
+#endif
+		#if defined(WIN32)
 		CloseHandle(mnginfo.thread);
+#endif
 	}
 	// free objects
 	if (mnginfo.image) free(mnginfo.image);
@@ -187,7 +193,7 @@ void CxImageMNG::SetCallbacks(mng_handle mng)
 bool CxImageMNG::Load(const TCHAR * imageFileName){
 	FILE* hFile;	//file handle to read the image
 #ifdef WIN32
-	if ((hFile=_tfopen(imageFileName,_T("rb")))==NULL)  return false;	// For UNICODE support
+	if ((hFile=fopen(imageFileName,_T("rb")))==NULL)  return false;	// For UNICODE support
 #else
 	if ((hFile=fopen(imageFileName,"rb"))==NULL)  return false;
 #endif
@@ -204,7 +210,7 @@ bool CxImageMNG::Decode(CxFile *hFile)
 	{
 		// set up the mng decoder for our stream
 		hmng = mng_initialize(&mnginfo, (mng_memalloc)mymngalloc, (mng_memfree)mymngfree, MNG_NULL);
-		if (hmng == NULL) cx_throw("could not initialize libmng");			
+		if (hmng == NULL) cx_throw("could not initialize libmng");
 
 		// set the file we want to play
 		mnginfo.file = hFile;
@@ -323,14 +329,14 @@ bool CxImageMNG::Encode(CxFile *hFile)
 
 		// set up the mng decoder for our stream
 		hmng = mng_initialize(&mnginfo, (mng_memalloc)mymngalloc, (mng_memfree)mymngfree, MNG_NULL);
-		if (hmng == NULL) cx_throw("could not initialize libmng");			
+		if (hmng == NULL) cx_throw("could not initialize libmng");
 
 		mng_setcb_openstream(hmng, mymngopenstreamwrite );
 		mng_setcb_closestream(hmng, mymngclosestream);
 		mng_setcb_writedata(hmng, mymngwritestream);
 
 		// Write File:
-   		mng_create(hmng);
+		mng_create(hmng);
 		// Just a single Frame (save a normal PNG):
 		WritePNG(hmng, 0, 1 );
 		// Now write file:
@@ -347,7 +353,7 @@ bool CxImageMNG::Encode(CxFile *hFile)
 void CxImageMNG::WritePNG( mng_handle hMNG, int32_t Frame, int32_t FrameCount )
 {
 	mngstuff *mymng = (mngstuff *)mng_get_userdata(hMNG);
-	
+
 	int32_t OffsetX=0,OffsetY=0,OffsetW=mymng->width,OffsetH=mymng->height;
 
 	uint8_t *tmpbuffer = new uint8_t[ (mymng->effwdt+1) * mymng->height];
@@ -355,28 +361,28 @@ void CxImageMNG::WritePNG( mng_handle hMNG, int32_t Frame, int32_t FrameCount )
 
 	// Write DEFI chunk.
 	mng_putchunk_defi( hMNG, 0, 0, 0, MNG_TRUE, OffsetX, OffsetY, MNG_FALSE, 0, 0, 0, 0 );
- 		 
+
 	// Write Header:
 	mng_putchunk_ihdr(
-		hMNG, 
-		OffsetW, OffsetH, 
-		MNG_BITDEPTH_8, 
-		MNG_COLORTYPE_RGB, 
-		MNG_COMPRESSION_DEFLATE, 
-		MNG_FILTER_ADAPTIVE, 
-		MNG_INTERLACE_NONE 
+		hMNG,
+		OffsetW, OffsetH,
+		MNG_BITDEPTH_8,
+		MNG_COLORTYPE_RGB,
+		MNG_COMPRESSION_DEFLATE,
+		MNG_FILTER_ADAPTIVE,
+		MNG_INTERLACE_NONE
 	);
 
 	// transfer data, add Filterbyte:
 	for( int32_t Row=0; Row<OffsetH; Row++ ){
 		// First Byte in each Scanline is Filterbyte: Currently 0 -> No Filter.
-		tmpbuffer[Row*(mymng->effwdt+1)]=0; 
+		tmpbuffer[Row*(mymng->effwdt+1)]=0;
 		// Copy the scanline: (reverse order)
-		memcpy(tmpbuffer+Row*(mymng->effwdt+1)+1, 
+		memcpy(tmpbuffer+Row*(mymng->effwdt+1)+1,
 			mymng->image+((OffsetH-1-(OffsetY+Row))*(mymng->effwdt))+OffsetX,mymng->effwdt);
 		// swap red and blue components
 		RGBtoBGR(tmpbuffer+Row*(mymng->effwdt+1)+1,mymng->effwdt);
-	} 
+	}
 
 	// Compress data with ZLib (Deflate):
 	uint8_t *dstbuffer = new uint8_t[(mymng->effwdt+1)*OffsetH];

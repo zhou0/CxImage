@@ -3,6 +3,27 @@
 
 #include "ximacfg.h"
 
+#if !defined(WIN32) && !defined(_WIN32_WCE)
+  #include <stdint.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <ctype.h>
+  #include <stdio.h>
+  #include <math.h>
+  #ifdef __cplusplus
+    #include <algorithm>
+    #include <limits>
+    #include <vector>
+    #include <string>
+    #include <list>
+    #include <map>
+    #include <set>
+    #include <deque>
+    #include <stack>
+    #include <queue>
+  #endif
+#endif
+
 #if /*defined(_AFXDLL)||*/defined(_USRDLL)
  #define DLL_EXP __declspec(dllexport)
 #elif defined(_MSC_VER)&&(_MSC_VER<1200)
@@ -10,7 +31,6 @@
 #else
  #define DLL_EXP
 #endif
-
 
 #if CXIMAGE_SUPPORT_EXCEPTION_HANDLING
   #define cx_try try
@@ -58,54 +78,25 @@
  #define CXIMAGE_SUPPORT_WINDOWS 0
 #endif
 
-#ifndef min
-#define min(a,b) (((a)<(b))?(a):(b))
-#endif
-#ifndef max
-#define max(a,b) (((a)>(b))?(a):(b))
-#endif
-
 #ifndef PI
  #define PI 3.141592653589793f
 #endif
 
-
 #if defined(WIN32) || defined(_WIN32_WCE)
 #include <windows.h>
 #include <tchar.h>
-#endif
-
-#include <stdio.h>
-#include <math.h>
-
-#ifdef __BORLANDC__
-
-#ifndef _COMPLEX_DEFINED
-
-typedef struct tagcomplex {
-	double x,y;
-} _complex;
-
-#endif
-
-#define _cabs(c) sqrt(c.x*c.x+c.y*c.y)
-
-#endif
-
-#if defined(WIN32) || defined(_WIN32_WCE)
- #include "stdint.h"
+#include "stdint.h"
 #endif
 
 #if !defined(WIN32) && !defined(_WIN32_WCE)
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
 typedef uint32_t   COLORREF;
 typedef void*      HANDLE;
 typedef void*      HRGN;
+typedef uint8_t    BYTE;
+typedef uint16_t   WORD;
+typedef uint32_t   DWORD;
+typedef unsigned long  ULONG;
 
 #ifndef BOOL
 #define	BOOL bool
@@ -121,7 +112,7 @@ typedef void*      HRGN;
 
 #ifndef TCHAR
 #define TCHAR char
-#define _T
+#define _T(x) x
 #endif
 
 typedef struct tagRECT
@@ -196,15 +187,23 @@ typedef struct tagRGBTRIPLE {
 #define RGB(r,g,b)          ((COLORREF)(((uint8_t)(r)|((uint16_t)((uint8_t)(g))<<8))|(((uint32_t)(uint8_t)(b))<<16)))
 
 #ifndef _COMPLEX_DEFINED
-
 typedef struct tagcomplex {
 	double x,y;
 } _complex;
-
 #endif
 
 #define _cabs(c) sqrt(c.x*c.x+c.y*c.y)
 
+#define _stricmp strcasecmp
+#define _strnicmp strncasecmp
+
+#endif
+
+#ifndef min
+#define min(a,b) (((a)<(b))?(a):(b))
+#endif
+#ifndef max
+#define max(a,b) (((a)>(b))?(a):(b))
 #endif
 
 #endif //__ximadefs
