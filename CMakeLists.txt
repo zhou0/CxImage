@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.5)
 project(CxImageProject)
 
 set(CMAKE_CXX_STANDARD 11)
+
+if(NOT MSVC)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration -Wno-return-type")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wno-write-strings")
+    add_definitions(-D_LINUX)
+else()
+    add_definitions(-DWIN32 -D_LIB -D_CRT_SECURE_NO_DEPRECATE)
+endif()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration -Wno-return-type")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wno-write-strings")
 
