@@ -109,7 +109,7 @@ bool CxImage::Save(const TCHAR * filename, uint32_t imagetype)
 	FILE* hFile;	//file handle to write the image
 
 #ifdef WIN32
-	if ((hFile=_tfopen(filename,_T("wb")))==NULL)  return false;	// For UNICODE support
+	if ((hFile=fopen(filename,_T("wb")))==NULL)  return false;	// For UNICODE support
 #else
 	if ((hFile=fopen(filename,"wb"))==NULL)  return false;
 #endif
@@ -574,7 +574,7 @@ bool CxImage::Load(const TCHAR * filename, uint32_t imagetype)
 		FILE* hFile;	//file handle to read the image
 
 #ifdef WIN32
-		if ((hFile=_tfopen(filename,_T("rb")))==NULL)  return false;	// For UNICODE support
+		if ((hFile=fopen(filename,_T("rb")))==NULL)  return false;	// For UNICODE support
 #else
 		if ((hFile=fopen(filename,"rb"))==NULL)  return false;
 #endif
@@ -591,7 +591,7 @@ bool CxImage::Load(const TCHAR * filename, uint32_t imagetype)
 	FILE* hFile;
 
 #ifdef WIN32
-	if ((hFile=_tfopen(filename,_T("rb")))==NULL)  return false;	// For UNICODE support
+	if ((hFile=fopen(filename,_T("rb")))==NULL)  return false;	// For UNICODE support
 #else
 	if ((hFile=fopen(filename,"rb"))==NULL)  return false;
 #endif

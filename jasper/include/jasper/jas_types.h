@@ -87,7 +87,11 @@
    long" types.  So, we work around this problem by using the "INT64"
    and "UINT64" types that are defined in the header file "windows.h".
  */
+#if defined(WIN32)
+#if defined(WIN32)
 #include <windows.h>
+#endif
+#endif
 #undef longlong
 #define	longlong	INT64
 #undef ulonglong
