@@ -1,0 +1,267 @@
+# Instincts generated from https://github.com/zhou0/CxImage
+# Generated: 2026-04-23T07:23:18.337Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: CxImage-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/zhou0/CxImage
+---
+
+# CxImage Commit Length
+
+## Action
+
+Keep commit messages concise (~37 characters)
+
+## Evidence
+
+- Average commit message length: 37 chars
+- Based on 1 commits
+
+---
+id: CxImage-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/zhou0/CxImage
+---
+
+# CxImage Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: CxImage-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/zhou0/CxImage
+---
+
+# CxImage Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: CxImage-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/zhou0/CxImage
+---
+
+# CxImage Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: CxImage-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/zhou0/CxImage
+---
+
+# CxImage Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: cximage-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct File Naming
+
+## Action
+
+Name the file using PascalCase
+
+## Evidence
+
+- Naming convention: files = PascalCase
+- Pattern in codeStyle.namingConventions.files
+
+---
+id: cximage-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Function Naming
+
+## Action
+
+Use camelCase for the function name
+
+## Evidence
+
+- Naming convention: functions = camelCase
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: cximage-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Class Naming
+
+## Action
+
+Use PascalCase for the class name
+
+## Evidence
+
+- Naming convention: classes = PascalCase
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: cximage-instinct-constant-naming
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for the constant name
+
+## Evidence
+
+- Naming convention: constants = SCREAMING_SNAKE_CASE
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: cximage-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Import style: relative
+- Pattern in codeStyle.importStyle
+
+---
+id: cximage-instinct-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Export style: named
+- Pattern in codeStyle.exportStyle
+
+---
+id: cximage-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Commit Format
+
+## Action
+
+Write a short, freeform message without a prefix, averaging around 37 characters
+
+## Evidence
+
+- Commit example: 'Add CMake build system and .gitignore'
+- Pattern in commits.examples
+- Pattern in commits.prefixes (empty)
+
+---
+id: cximage-instinct-test-location
+trigger: "When adding new tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: zhou0/CxImage
+---
+
+# Cximage Instinct Test Location
+
+## Action
+
+Place test files in a separate folder from source code
+
+## Evidence
+
+- testLocation: separate
+- Pattern in architecture.folderStructure.testLocation
+
