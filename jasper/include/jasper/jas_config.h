@@ -29,7 +29,9 @@
 /* #undef DEBUG_OVERFLOW */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
+#if !defined(_MSC_VER)
 #define HAVE_DLFCN_H 1
+#endif
 
 /* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
 /* #undef HAVE_DOPRNT */
@@ -38,10 +40,14 @@
 #define HAVE_FCNTL_H 1
 
 /* Define to 1 if you have the `getrusage' function. */
+#if !defined(_MSC_VER)
 #define HAVE_GETRUSAGE 1
+#endif
 
 /* Define to 1 if you have the `gettimeofday' function. */
+#if !defined(_MSC_VER)
 #define HAVE_GETTIMEOFDAY 1
+#endif
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -71,7 +77,9 @@
 #define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the <strings.h> header file. */
+#if !defined(_MSC_VER)
 #define HAVE_STRINGS_H 1
+#endif
 
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
@@ -80,7 +88,9 @@
 #define HAVE_SYS_STAT_H 1
 
 /* Define to 1 if you have the <sys/time.h> header file. */
+#if !defined(_MSC_VER)
 #define HAVE_SYS_TIME_H 1
+#endif
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
