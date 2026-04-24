@@ -1216,7 +1216,7 @@ assert(jas_image_numcmpts(enc->image) == 3);
 					mxmag = 0;
 					for (y = 0; y < JAS_CAST(uint_fast32_t, jas_matrix_numrows(band->data)); ++y) {
 						for (x = 0; x < JAS_CAST(uint_fast32_t, jas_matrix_numcols(band->data)); ++x) {
-							mag = labs(jas_matrix_get(band->data, y, x));
+							mag = abs(jas_matrix_get(band->data, y, x));
 							if (mag > mxmag) {
 								mxmag = mag;
 							}
