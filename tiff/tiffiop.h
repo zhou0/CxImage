@@ -50,10 +50,10 @@
 # define assert(x) 
 #endif
 
-#ifdef HAVE_SEARCH_H
+#if defined(HAVE_SEARCH_H) || defined(_MSC_VER)
 # include <search.h>
 #else
-extern void *lfind(const void *, const void *, size_t *, size_t,
+extern void *_lfind(const void *, const void *, size_t *, size_t,
 		   int (*)(const void *, const void *));
 #endif
 

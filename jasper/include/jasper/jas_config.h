@@ -86,7 +86,9 @@
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
+#if !defined(_MSC_VER)
 #define HAVE_UNISTD_H 1
+#endif
 
 /* Have variable length arrays */
 #define HAVE_VLA 1

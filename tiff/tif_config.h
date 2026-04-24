@@ -3,7 +3,9 @@
 #define HAVE_IEEEFP 1
 #define HAVE_STRING_H 1
 #define HAVE_SYS_TYPES_H 1
+#if !defined(_MSC_VER)
 #define HAVE_UNISTD_H 1
+#endif
 #define SIZEOF_INT 4
 #define SIZEOF_LONG 8
 #define TIFF_INT64_T signed long

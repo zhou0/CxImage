@@ -21,7 +21,6 @@ The generated baseline enables GitHub, Context7, Exa, Memory, Playwright, and Se
 
 ## Workflow Files
 
-- `.claude/commands/fix-windows-msvc-compile-errors.md`
-- `.claude/commands/merge-main-into-feature-branch.md`
+- No dedicated workflow command files were generated for this repo.
 
 Use these workflow files as reusable task scaffolds when the detected repository workflows recur.

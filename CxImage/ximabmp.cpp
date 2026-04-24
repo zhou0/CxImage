@@ -7,6 +7,7 @@
 
 #include "ximabmp.h"
 
+#include <math.h>
 #if CXIMAGE_SUPPORT_BMP
 
 #include "ximaiter.h" 

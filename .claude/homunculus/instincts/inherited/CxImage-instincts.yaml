@@ -1,5 +1,5 @@
 # Instincts generated from https://github.com/zhou0/CxImage
-# Generated: 2026-04-24T09:21:52.216Z
+# Generated: 2026-04-23T07:23:18.337Z
 # Version: 2.0
 # NOTE: This file supplements (does not replace) any existing curated instincts.
 # High-confidence manually curated instincts should be preserved alongside these.
@@ -17,12 +17,12 @@ source_repo: https://github.com/zhou0/CxImage
 
 ## Action
 
-Write moderate-length commit messages (~58 characters)
+Keep commit messages concise (~37 characters)
 
 ## Evidence
 
-- Average commit message length: 58 chars
-- Based on 8 commits
+- Average commit message length: 37 chars
+- Based on 1 commits
 
 ---
 id: CxImage-naming-files
@@ -37,12 +37,12 @@ source_repo: https://github.com/zhou0/CxImage
 
 ## Action
 
-Use camelCase naming convention
+Use PascalCase naming convention
 
 ## Evidence
 
 - Analyzed file naming patterns in repository
-- Dominant pattern: camelCase
+- Dominant pattern: PascalCase
 
 ---
 id: CxImage-import-relative
@@ -105,61 +105,8 @@ Place tests in the tests/ or __tests__/ directory, mirroring src structure
 - Tests live in dedicated test folders
 
 ---
-id: CxImage-workflow-fix-windows-msvc-compile-errors
-trigger: "when doing fix windows msvc compile errors"
-confidence: 0.6
-domain: workflow
-source: repo-analysis
-source_repo: https://github.com/zhou0/CxImage
----
-
-# CxImage Workflow Fix Windows Msvc Compile Errors
-
-## Action
-
-Follow the fix-windows-msvc-compile-errors workflow:
-1. Identify MSVC-specific compile errors and warnings.
-2. Guard GCC/Unix-specific code (e.g., unistd.h includes, compiler flags) with MSVC checks in headers and CMakeLists.txt.
-3. Update function signatures, casts, and types (e.g., pointer types, enum naming, narrowing conversions) to satisfy MSVC.
-4. Adjust usage of standard library functions (e.g., use _lfind and include search.h for MSVC).
-5. Repeat these changes across multiple modules (jasper, tiff, zlib, libpsd, CxImage/*, CMakeLists.txt).
-6. Commit changes with a detailed message listing all affected files and fixes.
-
-## Evidence
-
-- Workflow detected from commit patterns
-- Frequency: ~2x per month
-- Files: CMakeLists.txt, jasper/jpc/jpc_qmfb.c, jasper/jpc/jpc_tsfb.c
-
----
-id: CxImage-workflow-merge-main-into-feature-branch
-trigger: "when doing merge main into feature branch"
-confidence: 0.55
-domain: workflow
-source: repo-analysis
-source_repo: https://github.com/zhou0/CxImage
----
-
-# CxImage Workflow Merge Main Into Feature Branch
-
-## Action
-
-Follow the merge-main-into-feature-branch workflow:
-1. Fetch and checkout the feature/fix branch.
-2. Merge main into the branch.
-3. Resolve any merge conflicts across project and configuration files.
-4. Commit the merge with a standard message.
-5. Continue development or testing.
-
-## Evidence
-
-- Workflow detected from commit patterns
-- Frequency: ~1x per month
-- Files: .agents/skills/CxImage/SKILL.md, .agents/skills/CxImage/agents/openai.yaml, .claude/ecc-tools.json
-
----
 id: cximage-instinct-file-naming
-trigger: "When creating a new file in the codebase"
+trigger: "When creating a new file"
 confidence: 0.8
 domain: code-style
 source: repo-analysis
@@ -170,12 +117,12 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Name the file using camelCase (e.g., myNewFile.ts)
+Name the file using PascalCase
 
 ## Evidence
 
+- Naming convention: files = PascalCase
 - Pattern in codeStyle.namingConventions.files
-- Consistent with existing files in CxImage/
 
 ---
 id: cximage-instinct-function-naming
@@ -190,12 +137,12 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Name the function using camelCase (e.g., processImage())
+Use camelCase for the function name
 
 ## Evidence
 
+- Naming convention: functions = camelCase
 - Pattern in codeStyle.namingConventions.functions
-- Seen in CxImage/ximaico.cpp and related files
 
 ---
 id: cximage-instinct-class-naming
@@ -210,16 +157,16 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Name the class using PascalCase (e.g., ImageProcessor)
+Use PascalCase for the class name
 
 ## Evidence
 
+- Naming convention: classes = PascalCase
 - Pattern in codeStyle.namingConventions.classes
-- Seen in CxImage/ximage.h
 
 ---
 id: cximage-instinct-constant-naming
-trigger: "When declaring a constant"
+trigger: "When defining a constant"
 confidence: 0.8
 domain: code-style
 source: repo-analysis
@@ -230,16 +177,16 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Name the constant using SCREAMING_SNAKE_CASE (e.g., MAX_IMAGE_SIZE)
+Use SCREAMING_SNAKE_CASE for the constant name
 
 ## Evidence
 
+- Naming convention: constants = SCREAMING_SNAKE_CASE
 - Pattern in codeStyle.namingConventions.constants
-- Seen in CxImage/ximadef.h
 
 ---
 id: cximage-instinct-import-style
-trigger: "When importing modules in TypeScript"
+trigger: "When importing modules"
 confidence: 0.8
 domain: code-style
 source: repo-analysis
@@ -250,16 +197,16 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Use relative import paths (e.g., import { foo } from './foo')
+Use relative import paths
 
 ## Evidence
 
+- Import style: relative
 - Pattern in codeStyle.importStyle
-- Seen in TypeScript files
 
 ---
 id: cximage-instinct-export-style
-trigger: "When exporting functions or classes in TypeScript"
+trigger: "When exporting modules or functions"
 confidence: 0.8
 domain: code-style
 source: repo-analysis
@@ -270,37 +217,17 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Use named exports (e.g., export function foo() {})
+Use named exports
 
 ## Evidence
 
+- Export style: named
 - Pattern in codeStyle.exportStyle
-- Seen in TypeScript files
-
----
-id: cximage-instinct-test-location
-trigger: "When adding new tests"
-confidence: 0.7
-domain: testing
-source: repo-analysis
-source_repo: zhou0/CxImage
----
-
-# Cximage Instinct Test Location
-
-## Action
-
-Place test files in a separate test directory, not mixed with source files
-
-## Evidence
-
-- Pattern in architecture.folderStructure.testLocation
-- No test files in srcLayout
 
 ---
 id: cximage-instinct-commit-format
 trigger: "When writing a commit message"
-confidence: 0.85
+confidence: 0.7
 domain: git
 source: repo-analysis
 source_repo: zhou0/CxImage
@@ -310,52 +237,30 @@ source_repo: zhou0/CxImage
 
 ## Action
 
-Use a concise, imperative summary describing the change (e.g., 'Fix compile error on MSVC')
+Write a short, freeform message without a prefix, averaging around 37 characters
 
 ## Evidence
 
-- Seen in commit: 'Fix invalid numeric argument '/Wno-write-strings' on MSVC'
-- Seen in commit: 'Fix multiple compile errors on Windows/MSVC'
+- Commit example: 'Add CMake build system and .gitignore'
 - Pattern in commits.examples
+- Pattern in commits.prefixes (empty)
 
 ---
-id: cximage-instinct-fix-msvc-errors
-trigger: "When Windows/MSVC-specific compile errors or warnings are encountered"
-confidence: 0.9
-domain: workflow
-source: repo-analysis
-source_repo: zhou0/CxImage
----
-
-# Cximage Instinct Fix Msvc Errors
-
-## Action
-
-Systematically update source files, headers, and build scripts to resolve MSVC-specific issues (e.g., guard Unix-only code, update types, adjust standard library usage), and commit all related changes together with a detailed message
-
-## Evidence
-
-- Workflow: fix-windows-msvc-compile-errors
-- Commits: 'Fix comprehensive list of Windows/MSVC compile errors and warnings'
-- Pattern in files: CMakeLists.txt, jasper/jpc/jpc_qmfb.c, etc.
-
----
-id: cximage-instinct-merge-main
-trigger: "When a feature or fix branch needs to be synchronized with the latest changes from main"
+id: cximage-instinct-test-location
+trigger: "When adding new tests"
 confidence: 0.8
-domain: workflow
+domain: testing
 source: repo-analysis
 source_repo: zhou0/CxImage
 ---
 
-# Cximage Instinct Merge Main
+# Cximage Instinct Test Location
 
 ## Action
 
-Fetch and checkout the feature/fix branch, merge main into it, resolve any conflicts, and commit the merge with a standard message
+Place test files in a separate folder from source code
 
 ## Evidence
 
-- Workflow: merge-main-into-feature-branch
-- Commit: 'Merge branch 'main' into fix-msvc-compile-error-15738926125913519657'
-
+- testLocation: separate
+- Pattern in architecture.folderStructure.testLocation
