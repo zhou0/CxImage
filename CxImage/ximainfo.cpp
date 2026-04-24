@@ -7,6 +7,7 @@
 
 #if defined(_LINUX) || defined(__APPLE__)
  #define _tcsnicmp(a,b,c) strcasecmp(a,b)
+#include <math.h>
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////

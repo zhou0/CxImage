@@ -53,14 +53,15 @@
 #endif 
 
 #ifdef _LINUX
+#ifndef _XOPEN_SOURCE
   #define _XOPEN_SOURCE
+#endif
   #include <unistd.h>
   #include <arpa/inet.h>
 #endif
 #include <cstdint>
-#include <cstdint>
-
-/////////////////////////////////////////////////////////////////////////////
+#include <cmath>
+#include <algorithm>
 #include "xfile.h"
 #include "xiofile.h"
 #include "xmemfile.h"

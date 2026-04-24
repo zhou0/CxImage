@@ -7,6 +7,7 @@
 
 #include "ximaiter.h" 
 #include "ximabmp.h"
+#include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 #if defined (_WIN32_WCE)
@@ -1060,6 +1061,7 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 					}
 				}
 			} else {
+^I^I^I}
 				//NORMAL
 				iy=head.biHeight-ymax+y;
 				for(yy=0;yy<desth;yy++,iy++){
@@ -1116,6 +1118,8 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 		DeleteDC(TmpDC);
 	}
 
+^I	}
+	}
 #if !defined (_WIN32_WCE)
 	if (pClipRect){  // (experimental)
 		HRGN rgn = CreateRectRgnIndirect(&mainbox);
@@ -1371,6 +1375,7 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 					}
 				}
 			} else {
+^I^I^I}
 				//NORMAL
 				iy=head.biHeight-ymax+y;
 				for(yy=0;yy<desth;yy++,iy++){
@@ -1420,6 +1425,8 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 		//cleanup
 		SelectObject(TmpDC,TmpObj);
 		DeleteDC(TmpDC);
+	}
+^I	}
 	}
 
 #if !defined (_WIN32_WCE)

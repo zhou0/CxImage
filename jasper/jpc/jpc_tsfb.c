@@ -131,7 +131,7 @@ int jpc_tsfb_analyze2(jpc_tsfb_t *tsfb, int *a, int xstart, int ystart,
   int width, int height, int stride, int numlvls)
 {
 	if (width > 0 && height > 0) {
-		if ((*tsfb->qmfb->analyze)(a, xstart, ystart, width, height, stride))
+		if (tsfb->qmfb->analyze((jpc_fix_t *)a, xstart, ystart, width, height, stride))
 			return -1;
 		if (numlvls > 0) {
 			if (jpc_tsfb_analyze2(tsfb, a, JPC_CEILDIVPOW2(xstart,
@@ -167,7 +167,7 @@ int jpc_tsfb_synthesize2(jpc_tsfb_t *tsfb, int *a, int xstart, int ystart,
 		}
 	}
 	if (width > 0 && height > 0) {
-		if ((*tsfb->qmfb->synthesize)(a, xstart, ystart, width, height, stride)) {
+		if (tsfb->qmfb->synthesize((jpc_fix_t *)a, xstart, ystart, width, height, stride)) {
 			return -1;
 		}
 	}
