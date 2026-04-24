@@ -1,0 +1,96 @@
+```markdown
+# CxImage Development Patterns
+
+> Auto-generated skill from repository analysis
+
+## Overview
+This skill provides guidance for contributing to the CxImage codebase, a TypeScript project with no detected framework. It covers the project's coding conventions, common workflows (such as fixing Windows/MSVC compile errors and merging main into feature branches), and testing patterns. Use this skill to ensure consistency and efficiency when developing or maintaining CxImage.
+
+## Coding Conventions
+
+- **File Naming:**  
+  Use camelCase for file names.  
+  _Example:_  
+  ```
+  imageProcessor.ts
+  ximaico.cpp
+  ```
+
+- **Import Style:**  
+  Use relative imports.  
+  _Example:_  
+  ```typescript
+  import { processImage } from './imageProcessor';
+  ```
+
+- **Export Style:**  
+  Use named exports.  
+  _Example:_  
+  ```typescript
+  export function processImage() { ... }
+  export const IMAGE_TYPE = 'png';
+  ```
+
+- **Commit Messages:**  
+  - Freeform style, no enforced prefixes.
+  - Average length: ~58 characters.
+  - Be descriptive about the changes.
+
+## Workflows
+
+### Fix Windows/MSVC Compile Errors
+**Trigger:** When you need to make the codebase compile cleanly on Windows/MSVC, addressing errors and warnings due to platform differences.  
+**Command:** `/fix-msvc-compile`
+
+1. Identify MSVC-specific compile errors and warnings.
+2. Guard GCC/Unix-specific code (e.g., `#include <unistd.h>`, compiler flags) with MSVC checks in headers and `CMakeLists.txt`.
+3. Update function signatures, casts, and types (e.g., pointer types, enum naming, narrowing conversions) to satisfy MSVC.
+4. Adjust usage of standard library functions (e.g., use `_lfind` and include `search.h` for MSVC).
+5. Repeat these changes across relevant modules:
+    - `jasper`, `tiff`, `zlib`, `libpsd`, `CxImage/*`, `CMakeLists.txt`
+6. Commit changes with a detailed message listing all affected files and fixes.
+
+_Example:_  
+```cpp
+#ifdef _MSC_VER
+#include <search.h>
+#else
+#include <unistd.h>
+#endif
+```
+
+### Merge Main into Feature Branch
+**Trigger:** When you want to synchronize a feature or fix branch with the latest changes from `main` before continuing work or opening a PR.  
+**Command:** `/merge-main`
+
+1. Fetch and checkout your feature or fix branch.
+2. Merge `main` into your branch:
+    ```bash
+    git fetch origin
+    git checkout my-feature-branch
+    git merge origin/main
+    ```
+3. Resolve any merge conflicts across project and configuration files.
+4. Commit the merge with a standard message.
+5. Continue development or testing.
+
+## Testing Patterns
+
+- **Framework:** Unknown (not specified in the codebase).
+- **Test File Pattern:** Files named with `.test.` in their filename.
+  _Example:_  
+  ```
+  imageProcessor.test.ts
+  ```
+
+- **General Practice:**  
+  - Place tests alongside the modules they test.
+  - Use descriptive test names and assertions.
+
+## Commands
+
+| Command            | Purpose                                                         |
+|--------------------|-----------------------------------------------------------------|
+| /fix-msvc-compile  | Systematically resolve Windows/MSVC compile errors and warnings |
+| /merge-main        | Merge latest changes from main into a feature/fix branch        |
+```
