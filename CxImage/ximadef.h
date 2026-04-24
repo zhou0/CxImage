@@ -102,6 +102,7 @@ typedef unsigned long  ULONG;
 #define	BOOL bool
 #endif
 
+#include <math.h>
 #ifndef TRUE
 #define	TRUE true
 #endif

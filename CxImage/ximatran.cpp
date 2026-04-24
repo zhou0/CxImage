@@ -7,6 +7,7 @@
 #include "ximath.h"
 
 #if CXIMAGE_SUPPORT_BASICTRANSFORMATIONS
+#include <math.h>
 ////////////////////////////////////////////////////////////////////////////////
 /**
  * Increases the number of bits per pixel of the image.
