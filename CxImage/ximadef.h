@@ -93,6 +93,10 @@
 typedef uint32_t   COLORREF;
 typedef void*      HANDLE;
 typedef void*      HRGN;
+typedef void*      HDC;
+typedef void*      HBITMAP;
+typedef void*      HICON;
+typedef void*      HPALETTE;
 typedef uint8_t    BYTE;
 typedef uint16_t   WORD;
 typedef uint32_t   DWORD;

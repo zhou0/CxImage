@@ -101,7 +101,9 @@
 #endif
 
 /* Have variable length arrays */
+#if !defined(_MSC_VER)
 #define HAVE_VLA 1
+#endif
 
 /* Define to 1 if you have the `vprintf' function. */
 #define HAVE_VPRINTF 1
