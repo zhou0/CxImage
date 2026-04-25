@@ -416,7 +416,7 @@ HENHMETAFILE CxImageWMF::ConvertEmfFiletoEmf(CxFile *pFile, ENHMETAHEADER *pemfh
 	pFile->Seek(pos,SEEK_SET);
 
 	uint8_t* pBuff = (uint8_t *)malloc(iLen);
-	if (!pBuff)	return (FALSE);
+	if (!pBuff)	return NULL;
 
 	// Read the Enhanced Metafile
 	iLenRead = pFile->Read(pBuff, 1, iLen);

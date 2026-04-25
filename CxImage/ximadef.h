@@ -75,7 +75,7 @@
 
 #if !defined(WIN32) && !defined(_WIN32_WCE)
  #undef CXIMAGE_SUPPORT_WINDOWS
- #define CXIMAGE_SUPPORT_WINDOWS 0
+ #define CXIMAGE_SUPPORT_WINDOWS 1
 #endif
 
 #ifndef PI
@@ -93,10 +93,20 @@
 typedef uint32_t   COLORREF;
 typedef void*      HANDLE;
 typedef void*      HRGN;
+typedef void*      HDC;
+typedef void*      HBITMAP;
+typedef void*      HICON;
+typedef void*      HPALETTE;
+typedef void*      HFONT;
+typedef void*      HGDIOBJ;
+typedef void*      HENHMETAFILE;
+typedef void*      LPVOID;
+typedef char*      LPSTR;
 typedef uint8_t    BYTE;
 typedef uint16_t   WORD;
 typedef uint32_t   DWORD;
 typedef unsigned long  ULONG;
+typedef BYTE*      PBYTE;
 
 #ifndef BOOL
 #define	BOOL bool
@@ -137,6 +147,95 @@ typedef struct tagRGBQUAD {
 	uint8_t    rgbReserved;
 } RGBQUAD;
 
+typedef struct tagRGBTRIPLE {
+	uint8_t    rgbtBlue;
+	uint8_t    rgbtGreen;
+	uint8_t    rgbtRed;
+} RGBTRIPLE;
+
+typedef struct tagPALETTEENTRY {
+  uint8_t peRed;
+  uint8_t peGreen;
+  uint8_t peBlue;
+  uint8_t peFlags;
+} PALETTEENTRY, *PPALETTEENTRY;
+
+typedef struct tagLOGPALETTE {
+  uint16_t palVersion;
+  uint16_t palNumEntries;
+  PALETTEENTRY palPalEntry[1];
+} LOGPALETTE, *PLOGPALETTE;
+
+typedef struct tagLOGFONT {
+  long lfHeight;
+  long lfWidth;
+  long lfEscapement;
+  long lfOrientation;
+  long lfWeight;
+  uint8_t lfItalic;
+  uint8_t lfUnderline;
+  uint8_t lfStrikeOut;
+  uint8_t lfCharSet;
+  uint8_t lfOutPrecision;
+  uint8_t lfClipPrecision;
+  uint8_t lfQuality;
+  uint8_t lfPitchAndFamily;
+  TCHAR lfFaceName[32];
+} LOGFONT;
+
+typedef struct tagBITMAP {
+  long bmType;
+  long bmWidth;
+  long bmHeight;
+  long bmWidthBytes;
+  uint16_t bmPlanes;
+  uint16_t bmBitsPixel;
+  void* bmBits;
+} BITMAP;
+
+typedef struct tagICONINFO {
+  bool fIcon;
+  uint32_t xHotspot;
+  uint32_t yHotspot;
+  HBITMAP hbmMask;
+  HBITMAP hbmColor;
+} ICONINFO;
+
+typedef struct tagENHMETAHEADER {
+  uint32_t iType;
+  uint32_t nSize;
+  RECT rclBounds;
+  RECT rclFrame;
+  uint32_t dSignature;
+  uint32_t nVersion;
+  uint32_t nBytes;
+  uint32_t nRecords;
+  uint16_t nHandles;
+  uint16_t sReserved;
+  uint32_t nDescription;
+  uint32_t offDescription;
+  uint32_t nPalEntries;
+  POINT szlDevice;
+  POINT szlMillimeters;
+} ENHMETAHEADER;
+
+typedef struct tagMETAHEADER {
+  uint16_t mtType;
+  uint16_t mtHeaderSize;
+  uint16_t mtVersion;
+  uint32_t mtSize;
+  uint16_t mtNoObjects;
+  uint32_t mtMaxRecord;
+  uint16_t mtNoParameters;
+} METAHEADER;
+
+typedef struct tagMETAFILEPICT {
+  long mm;
+  long xExt;
+  long yExt;
+  void* hMF;
+} METAFILEPICT;
+
 #pragma pack(1)
 
 typedef struct tagBITMAPINFOHEADER{
@@ -153,13 +252,10 @@ typedef struct tagBITMAPINFOHEADER{
 	uint32_t   biClrImportant;
 } BITMAPINFOHEADER;
 
-typedef struct tagBITMAPFILEHEADER {
-	uint16_t   bfType;
-	uint32_t   bfSize;
-	uint16_t   bfReserved1;
-	uint16_t   bfReserved2;
-	uint32_t   bfOffBits;
-} BITMAPFILEHEADER;
+typedef struct tagBITMAPINFO {
+  BITMAPINFOHEADER bmiHeader;
+  RGBQUAD bmiColors[1];
+} BITMAPINFO, *LPBITMAPINFO, *PBITMAPINFO;
 
 typedef struct tagBITMAPCOREHEADER {
 	uint32_t   bcSize;
@@ -169,13 +265,131 @@ typedef struct tagBITMAPCOREHEADER {
 	uint16_t   bcBitCount;
 } BITMAPCOREHEADER;
 
-typedef struct tagRGBTRIPLE {
-	uint8_t    rgbtBlue;
-	uint8_t    rgbtGreen;
-	uint8_t    rgbtRed;
-} RGBTRIPLE;
+typedef struct tagBITMAPCOREINFO {
+  BITMAPCOREHEADER bmciHeader;
+  RGBTRIPLE bmciColors[1];
+} BITMAPCOREINFO, *LPBITMAPCOREINFO;
+
+typedef struct tagDIBSECTION {
+  BITMAP dsBm;
+  BITMAPINFOHEADER dsBmih;
+  uint32_t dsBitfields[3];
+  HANDLE dshSection;
+  uint32_t dsOffset;
+} DIBSECTION;
+
+typedef struct tagBITMAPFILEHEADER {
+	uint16_t   bfType;
+	uint32_t   bfSize;
+	uint16_t   bfReserved1;
+	uint16_t   bfReserved2;
+	uint32_t   bfOffBits;
+} BITMAPFILEHEADER;
 
 #pragma pack()
+
+#define SRCCOPY 0x00CC0020
+#define SRCAND 0x008800C6
+#define SRCPAINT 0x00EE0086
+#define SRCINVERT 0x00660046
+#define COLORONCOLOR 3
+#define DIB_RGB_COLORS 0
+#define OPAQUE 2
+#define ETO_OPAQUE 0x0002
+
+#define RGN_OR 2
+#define RGN_AND 1
+#define DT_CALCRECT 0x00000400
+#define DT_NOPREFIX 0x00000800
+#define DT_CENTER 1
+#define DT_LEFT 0
+#define DT_RIGHT 2
+#define _tcscpy strcpy
+#define _tcsncpy strncpy
+#define _tcsclen strlen
+#define _tcslen strlen
+#define DEFAULT_CHARSET 1
+#define EASTEUROPE_CHARSET 238
+#define OUT_DEFAULT_PRECIS 0
+#define CLIP_DEFAULT_PRECIS 0
+#define PROOF_QUALITY 2
+#define DEFAULT_PITCH 0
+#define FF_DONTCARE 0
+#define FW_NORMAL 400
+#define DEFAULT_GUI_FONT 17
+#define COLOR_WINDOW 5
+
+#define GHND 0x0042
+#define PATCOPY 0x00F00021
+#define ENHMETA_SIGNATURE 0x464D4520
+#define MM_TEXT 1
+#define EMR_HEADER 1
+#define MM_ANISOTROPIC 8
+#define LOGPIXELSX 88
+#define LOGPIXELSY 90
+#define BITSPIXEL 12
+
+#define GMEM_FIXED 0x0000
+#define GMEM_ZEROINIT 0x0040
+
+typedef void*      HBRUSH;
+
+#ifdef __cplusplus
+inline int SaveDC(HDC) { return 1; }
+inline void RestoreDC(HDC, int) {}
+inline HDC CreateCompatibleDC(HDC) { return 0; }
+inline void DeleteDC(HDC) {}
+inline void DeleteObject(void*) {}
+inline void* SelectObject(HDC, void*) { return 0; }
+inline void* GetStockObject(int) { return 0; }
+inline void BitBlt(HDC,int,int,int,int,HDC,int,int,uint32_t) {}
+inline void SetStretchBltMode(HDC,int) {}
+inline void StretchDIBits(HDC,int,int,int,int,int,int,int,int,const void*,const void*,uint32_t,uint32_t) {}
+inline void SetDIBitsToDevice(HDC,int,int,int,int,int,int,int,int,const void*,const void*,uint32_t) {}
+inline void* CreateDIBSection(HDC,const void*,uint32_t,void**,void*,uint32_t) { return 0; }
+inline void GetClipBox(HDC,RECT*) {}
+inline void* CreateRectRgnIndirect(const RECT*) { return 0; }
+inline void ExtSelectClipRgn(HDC,void*,int) {}
+inline void* CreateIconIndirect(void*) { return 0; }
+inline void DrawText(HDC,const TCHAR*,int,RECT*,uint32_t) {}
+inline bool ExtTextOut(HDC,int,int,uint32_t,const RECT*,const TCHAR*,uint32_t,const int*) { return true; }
+
+inline COLORREF SetTextColor(HDC,COLORREF) { return 0; }
+inline COLORREF SetBkColor(HDC,COLORREF) { return 0; }
+inline int SetBkMode(HDC,int) { return 0; }
+inline void* CreateFontIndirect(const LOGFONT*) { return 0; }
+inline void* GetDC(void*) { return 0; }
+inline void ReleaseDC(void*, void*) {}
+inline void StretchBlt(HDC,int,int,int,int,HDC,int,int,int,int,uint32_t) {}
+inline void* CreateCompatibleBitmap(HDC,int,int) { return 0; }
+inline void* CreateBitmap(int,int,int,int,const void*) { return 0; }
+inline bool RectVisible(HDC,const RECT*) { return true; }
+inline int GetObject(void*,int,void*) { return 0; }
+inline int GetDIBits(HDC,HBITMAP,uint32_t,uint32_t,void*,void*,uint32_t) { return 0; }
+inline bool GetIconInfo(HICON,ICONINFO*) { return true; }
+inline uint32_t RealizePalette(HDC) { return 0; }
+inline void* GlobalLock(void*) { return 0; }
+inline bool GlobalUnlock(void*) { return true; }
+inline void* GlobalAlloc(uint32_t,uint32_t) { return 0; }
+inline void* GlobalFree(void*) { return 0; }
+inline uint32_t GlobalSize(void*) { return 0; }
+inline void* CreateDIBPatternBrushPt(const void*,uint32_t) { return 0; }
+inline bool SetBrushOrgEx(HDC,int,int,POINT*) { return true; }
+inline bool PatBlt(HDC,int,int,int,int,uint32_t) { return true; }
+inline void* CreateRectRgn(int,int,int,int) { return 0; }
+inline int CombineRgn(HRGN,HRGN,HRGN,int) { return 0; }
+inline void* SetEnhMetaFileBits(uint32_t,const uint8_t*) { return 0; }
+inline uint32_t GetEnhMetaFileHeader(void*,uint32_t,ENHMETAHEADER*) { return 0; }
+inline bool DeleteEnhMetaFile(void*) { return true; }
+inline void* SetWinMetaFileBits(uint32_t,const uint8_t*,HDC,const METAFILEPICT*) { return 0; }
+inline int GetDeviceCaps(HDC,int) { return 96; }
+inline uint32_t GetSysColor(int) { return 0xFFFFFF; }
+
+inline void* SelectPalette(HDC,HPALETTE,bool) { return 0; }
+inline bool PlayEnhMetaFile(HDC,HENHMETAFILE,const RECT*) { return true; }
+inline uint32_t GetEnhMetaFilePaletteEntries(void*,uint32_t,PALETTEENTRY*) { return 0; }
+inline void* CreatePalette(const LOGPALETTE*) { return 0; }
+#endif
 
 #define BI_RGB        0L
 #define BI_RLE8       1L
