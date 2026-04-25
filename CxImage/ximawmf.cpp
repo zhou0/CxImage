@@ -409,10 +409,10 @@ HENHMETAFILE CxImageWMF::ConvertEmfFiletoEmf(CxFile *pFile, ENHMETAHEADER *pemfh
 	// Check the header first: <km>
 	int32_t pos = pFile->Tell();
 	int32_t iLenRead = pFile->Read(pemfh, 1, sizeof(ENHMETAHEADER));
-	if (iLenRead < sizeof(ENHMETAHEADER))         return NULL;
-	if (pemfh->iType != EMR_HEADER)               return NULL;
-	if (pemfh->dSignature != ENHMETA_SIGNATURE)   return NULL;
-	//if (pemfh->nBytes != (uint32_t)iLen)             return NULL;
+	if (iLenRead < sizeof(ENHMETAHEADER))         return (FALSE);
+	if (pemfh->iType != EMR_HEADER)               return (FALSE);
+	if (pemfh->dSignature != ENHMETA_SIGNATURE)   return (FALSE);
+	//if (pemfh->nBytes != (uint32_t)iLen)             return (FALSE);
 	pFile->Seek(pos,SEEK_SET);
 
 	uint8_t* pBuff = (uint8_t *)malloc(iLen);
@@ -422,7 +422,7 @@ HENHMETAFILE CxImageWMF::ConvertEmfFiletoEmf(CxFile *pFile, ENHMETAHEADER *pemfh
 	iLenRead = pFile->Read(pBuff, 1, iLen);
 	if (iLenRead != iLen) {
 		free(pBuff);
-		return NULL;
+		return (FALSE);
 	}
 
 	// Make it a Memory Metafile
@@ -430,7 +430,7 @@ HENHMETAFILE CxImageWMF::ConvertEmfFiletoEmf(CxFile *pFile, ENHMETAHEADER *pemfh
 
 	free(pBuff);	// finished with this one
 
-	if (!hMeta)	return NULL;	// oops.
+	if (!hMeta)	return (FALSE);	// oops.
 
 	// Get the Enhanced Metafile Header
 	uint32_t uRet = GetEnhMetaFileHeader(hMeta,				// handle of enhanced metafile 
@@ -439,7 +439,7 @@ HENHMETAFILE CxImageWMF::ConvertEmfFiletoEmf(CxFile *pFile, ENHMETAHEADER *pemfh
   
 	if (!uRet) {
 		DeleteEnhMetaFile(hMeta);
-		return NULL;
+		return (FALSE);
 	}
 
 	return (hMeta);
